@@ -1,0 +1,20 @@
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    when (requestCode) {
+        LOAD_PAYMENT_DATA_REQUEST_CODE -> {
+            when (resultCode) {
+                RESULT_OK -> {
+                    val paymentData = PaymentData.getFromIntent(data!!)
+                    val token = paymentData?.paymentMethodToken?.token
+                    // Send token to server
+                }
+                RESULT_CANCELED -> {
+                    // User canceled
+                }
+                AutoResolveHelper.RESULT_ERROR -> {
+                    val status = AutoResolveHelper.getStatusFromIntent(data)
+                    Log.e("GPay", "Error: ${status?.statusMessage}")
+                }
+            }
+        }
+    }
+}
