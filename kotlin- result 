@@ -1,0 +1,14 @@
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+
+    if (requestCode == RC_SIGN_IN) {
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            val idToken = account.idToken
+            // Send this token to your server to verify and log in
+        } catch (e: ApiException) {
+            Log.w("GoogleSignIn", "signInResult:failed code=" + e.statusCode)
+        }
+    }
+}
